@@ -3,6 +3,22 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View,TextInput,CheckBox,TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 export default function App() {
+  const [Codigo, setCodigo] = useState("");
+  const [Cliente, setCliente] = useState("");
+  const [Taller, setTaller] = useState("");
+  const [Equipo, setEquipo] = useState("");
+  const [Sistema, setSistema] = useState("");
+  const [Serie, setSerie] = useState("");
+  const [FMuestra, setFMuestra] = useState("");
+  const [Orden, setOrden] = useState("");
+  const [AceiteMarca, setAceiteMarca] = useState("");
+  const [Viscosidad, setViscosidad] = useState("");
+
+  const [HorasAceite, setHorasAceite] = useState("");
+  const [HorasEquipo, setHorasEquipo] = useState("");
+  const [AceiteAnanido, setAceiteAnanido] = useState("");
+  
+
   const [aceite, setAceite] = useState(false);
   const [filtro, setFiltro] = useState(false);
   const [rutina, setRutina] = useState(true);
@@ -34,6 +50,12 @@ export default function App() {
       
     }
   }
+
+
+  const Limpiar = ()=>{
+    
+  }
+
   return (
     <View style={styles.container}>
 
@@ -59,6 +81,9 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Cliente:</Text>
                         <TextInput
+                            value={Cliente}
+                            onChangeText={setCliente}
+                            onChangeText
                             editable
                             style={styles.campotextbox}
                           />
@@ -67,6 +92,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Taller:</Text>
                         <TextInput
+                            value={Taller}
                             editable
                             style={styles.campotextbox}
                           />
@@ -75,6 +101,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Equipo:</Text>
                         <TextInput
+                            value={Equipo}
                             editable
                             style={styles.campotextbox}
                           />
@@ -83,6 +110,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Sistema:</Text>
                         <TextInput
+                        value={Sistema}
                             editable
                             style={styles.campotextbox}
                           />
@@ -94,6 +122,7 @@ export default function App() {
                 <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Número de Serie:</Text>
                         <TextInput
+                            value={Serie}
                             editable
                             style={styles.campotextbox}
                           />
@@ -102,6 +131,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Fecha Muestra:</Text>
                         <TextInput
+                            value={FMuestra}
                             editable
                             style={styles.campotextbox}
                           />
@@ -110,6 +140,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Orden #:</Text>
                         <TextInput
+                            value={Orden}
                             editable
                             style={styles.campotextbox}
                           />
@@ -118,6 +149,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Aceite(Marca):</Text>
                         <TextInput
+                            value={AceiteMarca}
                             editable
                             style={styles.campotextbox}
                           />
@@ -125,6 +157,7 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Vicosidad</Text>
                         <TextInput
+                            value={Viscosidad}
                             editable
                             style={styles.campotextbox}
                           />
@@ -139,6 +172,7 @@ export default function App() {
                 <View style={styles.campo2contenedor}>
                       <Text style={styles.titulocampo2}>Horas de Aceite:</Text>
                         <TextInput
+                            value={HorasAceite}
                             editable
                             style={styles.campo2textbox}
                           />
@@ -146,6 +180,7 @@ export default function App() {
                   <View style={styles.campo2contenedor}>
                       <Text style={styles.titulocampo2}>Horas de Equipo:</Text>
                         <TextInput
+                            value={HorasEquipo}
                             editable
                             style={styles.campo2textbox}
                           />
@@ -153,6 +188,7 @@ export default function App() {
                   <View style={styles.campo2contenedor}>
                       <Text style={styles.titulocampo2}>Aceite Añadido:</Text>
                         <TextInput
+                            value={AceiteAnanido}
                             editable
                             style={styles.campo2textbox}
                           />
@@ -210,12 +246,12 @@ export default function App() {
                   <View style={{flexDirection:'row',width:'100%', justifyContent:'center'}}>
                         
                          <TouchableOpacity style={[styles.botones,{marginRight:5,backgroundColor:'#8f8f8f'}]} onPress={()=>copiascuenta(false)}>
-                          <Text style={styles.titulocampo2}>Limpiar</Text>
+                          <Text style={[styles.titulocampo2,{color:'#fff'}]}>Limpiar</Text>
                          </TouchableOpacity>
                           
 
                           <TouchableOpacity style={[styles.botones,{marginLeft:5,backgroundColor:'#003591'}]} onPress={()=>copiascuenta(true)}>
-                            <Text style={styles.titulocampo2}>Imprimir</Text>
+                            <Text style={[styles.titulocampo2,{color:'#fff'}]}>Imprimir</Text>
                          </TouchableOpacity>
                           
                   </View>
