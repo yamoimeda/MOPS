@@ -104,24 +104,52 @@ export default function App() {
     else{
 
      var html = `<html>
-      <head>
-        <style>
-          body {
-            width: 216px;
-            height: 384px;
-          }
-        </style>
-      </head>
-      <body>
-      
-      <h1 >CLIENTE: </h1>
-      <h1 >TALLER: </h1>
-      <h1 >EQUIPO: </h1>
-      <h1 >SISTEMA: </h1>
-      <h1 >CLIENTE: </h1>
-      
-      </body>
-    </html>
+     <head>
+     <style>
+       body {
+         width: 10px;
+         height: 384px;
+         background-color: red;
+       }
+     </style>
+   </head>
+   <body>
+ 
+ <div>
+ 
+   <div>
+ <h6 >CLIENTE: </h1>
+   <h6 >TALLER: </h1>
+   <h6 >EQUIPO: </h1>
+   <h6 >SISTEMA: </h1>
+   <h6 >CLIENTE: </h1>
+ </div>
+ <div>
+ <h6 >HORAS DE ACITE: </h1>
+   <h6 >HORAS DE EQUIPO: </h1>
+   <h6 >ACEITEAÑADIDO: </h1>
+ </div>
+ 
+ <div>
+ 
+ </div>
+ 
+ <div>
+ <h6 >HORAS DE ACITE: </h1>
+   <h6 >HORAS DE EQUIPO: </h1>
+   <h6 >ACEITEAÑADIDO: </h1>
+ </div>
+ 
+ </div>
+ <div>
+ 
+   
+ 
+ </div>
+   
+   
+   </body>
+ </html>
     `
     }
 
