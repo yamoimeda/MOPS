@@ -1,6 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React,{useState} from 'react';
-import { StyleSheet, Text, View,TextInput,CheckBox,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput,CheckBox,TouchableOpacity,KeyboardAvoidingView,Platform,ScrollView,StatusBar,
+  ToastAndroid} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 export default function App() {
   const [Codigo, setCodigo] = useState("");
@@ -53,22 +54,123 @@ export default function App() {
 
 
   const Limpiar = ()=>{
+
     
+    setCodigo("");
+    setCliente("");
+    setTaller("");
+    setEquipo("");
+    setSistema("");
+    setSerie("");
+    setFMuestra("");
+    setOrden("");
+    setAceiteMarca("");
+    setViscosidad("");
+  
+    setHorasAceite("");
+    setHorasEquipo("");
+    setAceiteAnanido("");
+    
+  
+    setAceite(false);
+    setFiltro(false);
+    setRutina(true);
+    setOtro(false);
+    setCopias(1);
+    ToastAndroid.showWithGravity(
+      "Limpiado",
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM
+    );
   }
 
+  const Imprimir = ()=>{
+  
+    if(Cliente == ""){
+      ToastAndroid.showWithGravity(
+        "No se ha escaneado",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM
+      );
+    }else if(FMuestra == ""||Orden == ""|| AceiteMarca == ""|| Viscosidad == ""|| HorasAceite == ""|| HorasEquipo == ""|| AceiteAnanido == "" || (aceite==false && filtro == false)){
+
+
+      ToastAndroid.showWithGravity(
+        "Complete todos los campos",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM
+      );
+    }
+    else{
+
+     var html = `<html>
+      <head>
+        <style>
+          body {
+            width: 216px;
+            height: 384px;
+          }
+        </style>
+      </head>
+      <body>
+      
+      <h1 >CLIENTE: </h1>
+      <h1 >TALLER: </h1>
+      <h1 >EQUIPO: </h1>
+      <h1 >SISTEMA: </h1>
+      <h1 >CLIENTE: </h1>
+      
+      </body>
+    </html>
+    `
+    }
+
+  }
+//123456789ABCDEF|987654321FEDCBA|0011223344AABBCC|AABBCC0011223344|QWERTY123456
+
+  const LeerCodigo = (texto)=>{
+    setCodigo(texto)
+    const datos = texto.split("|");
+    if(datos.length ==5 ){
+
+      setCliente(datos[0]);
+    setTaller(datos[1]);
+    setEquipo(datos[2]);
+    setSistema(datos[3]);
+    setSerie(datos[4]);
+
+    }
+    else{
+      ToastAndroid.showWithGravity(
+        "Error: Codigo invalido",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM
+      );
+    }
+  }
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView  style={{flex:1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
-      <View style={styles.logocontainer}>
-          <Text style={styles.logotext}>MOPS LOGO</Text>
+<StatusBar
+        animated={true}
+        backgroundColor="#dbdbdb"
+        barStyle={'default'}
+        showHideTransition={'none'} />
+      <ScrollView style={styles.container} >
+            <View style={styles.logocontainer}>
+                  <Text style={styles.logotext}>MOPS LOGO</Text>
 
-      </View>
+            </View>
 
       <View style={styles.capturacontainer}>
           <Text style={styles.titulo}>Capture el Código de Máquina</Text>
             <TextInput
+            autoFocus={true}
+              value={Codigo}
+              onChangeText={LeerCodigo}
                 editable
                 style={styles.codigotextbox}
+                showSoftInputOnFocus={false}
               />
       </View>
 
@@ -83,9 +185,9 @@ export default function App() {
                         <TextInput
                             value={Cliente}
                             onChangeText={setCliente}
-                            onChangeText
-                            editable
+                            editable={false}
                             style={styles.campotextbox}
+                            
                           />
                   </View>
 
@@ -93,7 +195,8 @@ export default function App() {
                       <Text style={styles.titulocampo}>Taller:</Text>
                         <TextInput
                             value={Taller}
-                            editable
+                            onChangeText={setTaller}
+                            editable={false}
                             style={styles.campotextbox}
                           />
                   </View>
@@ -102,7 +205,8 @@ export default function App() {
                       <Text style={styles.titulocampo}>Equipo:</Text>
                         <TextInput
                             value={Equipo}
-                            editable
+                            onChangeText={setEquipo}
+                            editable={false}
                             style={styles.campotextbox}
                           />
                   </View>
@@ -110,8 +214,9 @@ export default function App() {
                   <View style={styles.campocontenedor}>
                       <Text style={styles.titulocampo}>Sistema:</Text>
                         <TextInput
-                        value={Sistema}
-                            editable
+                            value={Sistema}
+                            onChangeText={setSistema}
+                            editable={false}
                             style={styles.campotextbox}
                           />
                   </View>
@@ -123,7 +228,8 @@ export default function App() {
                       <Text style={styles.titulocampo}>Número de Serie:</Text>
                         <TextInput
                             value={Serie}
-                            editable
+                            onChangeText={setSerie}
+                            editable={false}
                             style={styles.campotextbox}
                           />
                   </View>
@@ -132,6 +238,7 @@ export default function App() {
                       <Text style={styles.titulocampo}>Fecha Muestra:</Text>
                         <TextInput
                             value={FMuestra}
+                            onChangeText={setFMuestra}
                             editable
                             style={styles.campotextbox}
                           />
@@ -141,6 +248,7 @@ export default function App() {
                       <Text style={styles.titulocampo}>Orden #:</Text>
                         <TextInput
                             value={Orden}
+                            onChangeText={setOrden}
                             editable
                             style={styles.campotextbox}
                           />
@@ -150,6 +258,7 @@ export default function App() {
                       <Text style={styles.titulocampo}>Aceite(Marca):</Text>
                         <TextInput
                             value={AceiteMarca}
+                            onChangeText={setAceiteMarca}
                             editable
                             style={styles.campotextbox}
                           />
@@ -158,6 +267,7 @@ export default function App() {
                       <Text style={styles.titulocampo}>Vicosidad</Text>
                         <TextInput
                             value={Viscosidad}
+                            onChangeText={setViscosidad}
                             editable
                             style={styles.campotextbox}
                           />
@@ -173,6 +283,7 @@ export default function App() {
                       <Text style={styles.titulocampo2}>Horas de Aceite:</Text>
                         <TextInput
                             value={HorasAceite}
+                            onChangeText={setHorasAceite}
                             editable
                             style={styles.campo2textbox}
                           />
@@ -181,6 +292,7 @@ export default function App() {
                       <Text style={styles.titulocampo2}>Horas de Equipo:</Text>
                         <TextInput
                             value={HorasEquipo}
+                            onChangeText={setHorasEquipo}
                             editable
                             style={styles.campo2textbox}
                           />
@@ -189,6 +301,7 @@ export default function App() {
                       <Text style={styles.titulocampo2}>Aceite Añadido:</Text>
                         <TextInput
                             value={AceiteAnanido}
+                            onChangeText={setAceiteAnanido}
                             editable
                             style={styles.campo2textbox}
                           />
@@ -242,57 +355,44 @@ export default function App() {
         
       </View>
 
-      <View style={styles.botonescontainer}>
-                  <View style={{flexDirection:'row',width:'100%', justifyContent:'center'}}>
-                        
-                         <TouchableOpacity style={[styles.botones,{marginRight:5,backgroundColor:'#8f8f8f'}]} onPress={()=>copiascuenta(false)}>
-                          <Text style={[styles.titulocampo2,{color:'#fff'}]}>Limpiar</Text>
-                         </TouchableOpacity>
-                          
-
-                          <TouchableOpacity style={[styles.botones,{marginLeft:5,backgroundColor:'#003591'}]} onPress={()=>copiascuenta(true)}>
-                            <Text style={[styles.titulocampo2,{color:'#fff'}]}>Imprimir</Text>
-                         </TouchableOpacity>
-                          
-                  </View>
-      </View>
+     
       
-    </View>
+      </ScrollView>
+      
+    </KeyboardAvoidingView >
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#dbdbdb',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   logocontainer:{
-    height:'8%',
+    height:50,
     width:'100%',
     backgroundColor: '#dbdbdb',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
   },
   capturacontainer:{
-    height:'13%',
+    height:65,
     width:'100%',
     justifyContent:'center',
     alignItems:'center',
   },
   campos1container:{
-    height:'30%',
+    height:300,
     width:'100%',
+    marginTop:10
   },
   campos2container:{
-    height:'25%',
+    height:270,
     width:'100%',
   },
   botonescontainer:{
-    height:'25%',
+    height:100,
     width:'100%',
-    paddingTop:30
+    paddingTop:30,
   },
   campos1izcontainer:{
     height:'100%',
@@ -314,7 +414,6 @@ const styles = StyleSheet.create({
     fontWeight:'700',
     paddingLeft:5,
     width:'100%',
-    textAlign:'left'
   },
   titulocampo2:{
     fontSize: 12,
@@ -332,14 +431,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   codigotextbox:{
-    padding: 10,
     width:'80%',
     height:35,
     backgroundColor:'#fff',
     marginTop:5,
     borderRadius:2,
     borderColor:'#c4c4c4',
-    borderWidth:1
+    borderWidth:1,
+    alignItems:'center',
+    paddingLeft:5
   },
   campocontenedor:{
     height:'20%',
@@ -349,39 +449,42 @@ const styles = StyleSheet.create({
   },
   campo2contenedor:{
     flexDirection:'row',
-    height:'14%',
+    height:38,
     width:'100%',
     alignItems:'center',
     justifyContent:'center',
     
   },
   campotextbox:{
-    padding: 10,
     width:'90%',
-    height:15,
+    height:30,
     backgroundColor:'#fff1d1',
-    marginTop:5,
     borderRadius:2,
     borderColor:'#c4c4c4',
     borderWidth:1,
-    marginRight:5
+    marginRight:5,
+    fontSize:10,
+    alignItems:'center',
+    paddingLeft:5
     
   },
   campo2textbox:{
-    padding: 10,
     width:'40%',
-    height:15,
+    height:30,
     backgroundColor:'#fff',
     marginTop:5,
     borderRadius:2,
     borderColor:'#c4c4c4',
     borderWidth:1,
-    marginRight:5
+    marginRight:5,
+    fontSize:10,
+    alignItems:'center',
+    paddingLeft:5
     
   },
   boton:{
     width:30,
-    height:20,
+    height:25,
     backgroundColor:'#fff',
     borderRadius:2,
     borderColor:'#5c5c5c',
